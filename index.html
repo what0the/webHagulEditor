@@ -1,0 +1,94 @@
+<!--made by what0the -->
+<html>
+<head>
+<title>Web Editor</title>
+<!--version 1.2 -->
+<style type="text/css">@import url("./css/editor.css");</style>
+<script type="text/javascript" src="./js/styleJS.js"></script>
+<script type="text/javascript" src="./js/CompleteList.js"></script>
+<script type="text/javascript" src="./js/autoSave.js"></script>
+<script type="text/javascript" src="./js/editor.js"></script>
+<script type="text/javascript" src="./js/fileIO.js"></script>
+</head>
+
+<body onload="setup();" onmousedown="clickEvent(this);" onkeydown="funcStroke(event);">
+
+<div id="wrap">
+	<h1 class="literal">Web Editor</h1>
+	<h3 class="literal">v1.2(Beta)</h3><h5 class="literal">supports <span>Firefox</span> only</h5>
+</div>
+<h3> ctrl = 한/영 </h3> <div id="state">영문</div> <!-- <h5 id="msg">※한글 입력 외의 작업은 "영문" 상태에서 하시기 바랍니다.</h5> -->
+<div class="content">
+ 	<textarea class="left_align" id="editbox" onkeydown="keyStroke(event,this);" onkeypress="keyStroke(event,this);" onkeyup = "keyUp(event);"></textarea>
+ 	<table class="left_align saveList">
+ 	<thead>
+ 		<tr>
+ 			<th>자동저장목록</th>
+ 		</tr>
+ 	</thead>
+ 	<tbody id="autoSave_list">
+ 		<tr>
+ 			<td onclick="alert(this.innerHTML);" class="list">30초 전 - 2017. 3. 4. 오후 9:18:20</td>
+ 		</tr>
+ 		<tr>
+ 			<td onclick="alert(this.innerHTML);" class="list">1분 전 - 2017. 3. 4. 오후 9:18:20</td>
+ 		</tr>
+ 	</tbody>
+ 	<tfoot><tr><td></td></tr></tfoot>
+ 	</table>
+ 	<div class="clear">
+ 	</div>
+</div>
+ <table class="footLine">
+	<tr>
+		<td><input id="saveAs" onkeydown="keyStroke(event,this);" onkeypress="keyStroke(event,this);" onkeyup = "keyUp(event);"/></td>
+		<td><button onclick="saveTextAsFile()">Save File</button></td>
+	</tr>
+	<tr>
+		<td><input type = "file" id="fileToLoad"/></td>
+		<td><button onclick="loadFileAsText()">Load File</button></td>
+	</tr>
+</table>
+<span class="footLine auto_set">
+	<div class="footLine auto_compset btn" id="auto_complete" onclick="show_laidPopup();">자동완성</div>
+	<div class="footLine auto_compset btn auto_on" id="auto_flag" onclick="autoComp_st(this)">ON</div>
+</span>
+<div class="clear"></div>
+<div class="laidPopup" id="laidPopup">
+	<div id="popup_centerize"></div>
+	<div class="clear"></div>
+	<div class="popup">
+		<div class="popup_header"><h2>자동 완성 목록</h2></div>
+		<div class="popup_body">
+			<div class="popup_cmd">
+				<form name="cmd" id="cmd">
+					<input id="in_1" name="in_1" type="text" onkeydown="keyStroke(event,this);" onkeypress="keyStroke(event,this);" onkeyup = "keyUp(event);">
+					->
+					<input id="in_2" name="in_2" onkeypress="keyStroke(event,this);autoComp_evt(event);" type="text" onkeydown="keyStroke(event,this);" onkeyup = "keyUp(event);">
+					<input type="button" class="btn" id="add_autoList" onClick="add_list();" value="추가"></button>
+				</form>
+			</div>
+			<div class="popup_contents">
+				<table class="popup_list" id="popup_list">
+					<tr class="list_line">
+						<td class="list_1">
+						;a
+						</td>
+						<td>
+						->
+						</td>
+						<td class="list_2">
+						:A
+						</td>
+						<td class="list_3">
+							<input type="button" class="btn del_autoList" value="삭제">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="laid" onclick="hide_laidPopup();"></div>
+</div>
+</body>
+</html>
